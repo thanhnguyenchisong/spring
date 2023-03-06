@@ -14,4 +14,4 @@ So we have the relation bw stack and heap as reference
 So a refernce object stays in heap.
 
 ### Multi Dimensional Array
-int num[][] = new int[3][4]
+int num[][] = new int[3][4];
