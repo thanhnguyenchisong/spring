@@ -1,7 +1,7 @@
 # Spring core (Core Technologies)
 
-## Chappter 1. The IOC contrainer
-### 1. Introduction Spring IOC container and Beans
+# Chappter 1. The IOC contrainer and Beans
+## 1. Introduction Spring IOC container and Beans
 - IOC is Inversion of Control or we know it as   Dependencies Injection (DI), a process whereby object define their dependencies.
 
  Hence IOC name: The container injects those dependencies when it creates the bean.
@@ -12,7 +12,7 @@
 
  ``Bean`` are objects that form to backbone of application and managed by Spring IOC container.
 
-### 2. IOC Container overview
+## 2. IOC Container overview
 ``ApplicationContext`` is responsible for instantiating, configuring, assembling the beans.
 
 Standalone application is common to create an instance of ``ClassPathXmlApplicationContext`` or ``FileSystemXmlApplicationContext`` (traditional format) or can use java anotation to define the configuration metadata.
@@ -47,7 +47,7 @@ You also can compose the XML-based configuration metadata by use import keyword
 </beans>
 ```
 
-### 3. Bean overview
+## 3. Bean overview
 Bean is ... from previous part.
 Bean definition (information create a specific bean): class, name, scope, constuctor arguments, properties, autowiring mode, lazy-initialization mode, initialization method, destruction method
 
@@ -314,7 +314,7 @@ You can replace to other method create a class eimplement MethodReplacer interfa
 <bean id="replacementComputeValue" class="a.b.c.ReplacementComputeValue"/>
 ```
 
-## **5 Bean Scopes**
+# **5 Bean Scopes**
 - singleton : Default - one instance to all inject/looked up
 - prototype: a new object is created each time it is inject/looked up
 - request: Lifecycle of single HTTP request
@@ -389,7 +389,7 @@ So here we just custom by add some job in initialization and destruction bean.
 We know how to getBean now we know how to get meatadata
 -- Never use it before so don't understand deeper
 
-**5.2 Bean definition Inheritance**
+## **5.1 Bean definition Inheritance**
 ```xml
 <bean id="inheritedTestBean" abstract="true"
         class="org.springframework.beans.TestBean">
@@ -440,13 +440,13 @@ From Spring 2.5 they introduce a explicit override from context name-space
 **FactoryBean**
 Can implement FactoryBean and use three method getObject isSingleton and getObjectType.
 
-**5.3 Anotaion-based Container Configuration**
+## **5.3 Anotaion-based Container Configuration**
 
 - Anotaion better than than XML configuring Spring?
   "It depends". each of them have pros and cons.
   Anotation  provides a lot od context in their declaration leading to shorter and more concise configuration. However XML at wiring up component without touching their source code and recompliling them. Centralize the configuration in xml part so can keep the pure Java POJO object.
 
-#### **5.3.1 @Autowired**
+### **5.3.1 @Autowired**
 You can apply this anotation for properties, constructor, setter method.
 Also can instruct Spring to provide all beans of a particular typy by adding ``@Autowired`` annotation to inject component to a collection, Map
 ```java
@@ -471,7 +471,7 @@ public class SimpleMovieLister {
 Can use @Nullable to set the Bean is optional as @Autowired(requited=false).
 Can use it for interfaces that well-know resolvable dependencies. ``@Autowired
     private ApplicationContext context;``
-#### **5.3.2 Fine-tuning Annotaion-based Autowiring with @Primary, @Qualifier**
+### **5.3.2 Fine-tuning Annotaion-based Autowiring with @Primary, @Qualifier**
 Autowiring by type may lead to multiple candidates. (we can create many beans with same type - class). In this case which have @Primary will be taken as value if exactly one primary bean exist among candidates.
 
 Use ``@Primary`` in Java file or ``primary="true"`` attribute in xml file
@@ -559,13 +559,13 @@ In spring boot it easier by deafult file for PropertySourcesPlaceholderConfigure
  **Using @PostConstruct and @PreDestroy**
  Use it in Bean to inject your source code to construction process and deconstruction process
 
- #### **5.4. Classpath scanning and Managed Components.**
+ ## **5.4. Classpath scanning and Managed Components.**
 @Component is generic type any Spring-managed component. @Repository, @Service, and @Controller are specializations of @Component for more specific use cases
 
-#### **5.4.1 Meata annootations and Composed Annotations.**
+### **5.4.1 Meata annootations and Composed Annotations.**
 Compose anotation that is compose of 2 anotation example ``@RestController`` anoation from ``@Controller`` and ``@ResponseBody``
 
-##### **5.4.2 Using Filters to Customize Scanning**
+### **5.4.2 Using Filters to Customize Scanning**
 ```java
 @Configuration
 @ComponentScan(basePackages = "org.example",
@@ -575,7 +575,7 @@ public class AppConfig {
     // ...
 }
 ```
-##### Bean in component
+**Bean in component**
 You can define Bean meatadata in Component by @Bean
 ```java
 @Component
@@ -594,12 +594,12 @@ Also provide the Laza, scope, qualifier as xml metadata
 The bean will available when the component class was created. So you can you static for Bean method to 
 -- never use like that, try it to understand
 
-#### **5.4.3 Naming Autodetected Components**
+### **5.4.3 Naming Autodetected Components**
 Each component have a specific name. ``@Service("myMovieLister")``
-#### **5.4.4 Providing a Scope, qualifier for Autodetected Components**
+### **5.4.4 Providing a Scope, qualifier for Autodetected Components**
 The components also be managed as bean so we can add scope, 
 
-#### **5.4.5 Generating an Index of Candidate Components**
+### **5.4.5 Generating an Index of Candidate Components**
 Improve the startup performance of large applications by creating a static list of candidates at compilation time, need to import
 ```xml
 <dependencies>
@@ -612,7 +612,7 @@ Improve the startup performance of large applications by creating a static list 
 </dependencies>
 
 ```
-#### 1.11 Using JSR 330 
+## **6. Using JSR 330**
 ```xml
 <dependency>
     <groupId>jakarta.inject</groupId>
@@ -627,7 +627,7 @@ Instead of ``@Component`` you can use ``@Name("name")`` or ``@ManagedBean("name"
 
 There is no ``@Value`` and ``@Lazy`` features.
 
-### **5.5 Java-based Container Configuration**
+### **6.1 Java-based Container Configuration**
 - Start with you have to create the ApplicationContext, which will be manage your bean. What type you would like to you. In the case you would like to use anotation config only can be create by ``new AnnotationConfigApplicationContext(Dependency1.class, Dependency2.class);`` or building your context by ``context.register(classes)`` || Not recomment should use step 2
 
 - Enableing Component Scanning with ``@ComponentScan(basePackages = "com.acme")`` or use ``context.scan("com.acme")`` in main method. You can without define the class by manually with step 1
@@ -654,7 +654,7 @@ There is no ``@Value`` and ``@Lazy`` features.
   ##### 1.13 Environment Abstraction
   Can use Environment to read the properties configuration
 
-### **5.6 Bean Definition Profiles**
+## 7. Bean Definition Profiles**
 We would like to deploy in some different enviroments, each of them have different properties files.
 
 #### Using @Profile
@@ -699,11 +699,80 @@ You can you this way as Placeholder Resolution in Statements
     <import resource="com/bank/service/${customer}-config.xml"/>
 </beans>
 ```
-### **5.7 Registering a LoadTimeWeaver**
+## 8. Registering a LoadTimeWeaver**
  Never use it before - have to ask
 
-### **5.8 More of ApplicationContext**
-**Message Source**: Provide i18n functionality
+## 9. More of ApplicationContext**
+### 9.1 **Message Source**: Provide i18n functionality
+``MessageSource`` and ``HierarchicalMessageSource`` interface.
+- ``String getMessages(String code, ...)`` 2 method from ``MessageSource`` and one from ``MessageSourceResolvable``
+
+When ``ApplicationContext`` is loaded, it automatically seaches for a ``MessageSource``
+The implementations: ``ResourceBundleMessageSource``, ``ReloadableResourceBundleMessageSource`` and ``StaticMessageSource`` implement from ``HierarchicalMessageSource``
+```xml
+<beans>
+    <bean id="messageSource"
+            class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>format</value>
+                <value>exceptions</value>
+                <value>windows</value>
+            </list>
+        </property>
+    </bean>
+</beans>
+```
+This config says 3 files ``format.properties, exceptions.properties, windows.properties`` will be loaded.
+
+If you want to switch to British(end-GB). You would create files called ``format_en_GB.properties, exceptions_en_GB.properties, windows_en_GB.properties`` and in the Java code you ``getMessage`` with ``Locale.UK``. 
+Can use ``MessageSourceAware`` it already had a MessageSource  inside.
+
+**ReloadableResourceBundleMessageSource** class supports reading files from any Spring resource localtion and hot reloading of bundle property file. -- Recommend to use it
+### **9.2 Standard and Custom Events**
+Event handling by ``ApplicationEvent`` class and ``ApplicationListener`` interface.  If ``bean`` implement ``ApplicationListener`` then every ``ApplicationEvent`` published to ``AppContex``, bean is notified. It is standard Observer design pattern.
+
+This is simple communication between Spring beans within the same application context
+
+You can use the anotation
+``@EventListener({ContextStartedEvent.class, ContextRefreshedEvent.class})`` on method and can add the coondition to filter data ``@EventListener(condition = "#blEvent.content == 'my-event'")``
+
+**Asynchronous Listeners**
+```java
+@EventListener
+@Async
+public void processBlockedListEvent(BlockedListEvent event) {
+    // BlockedListEvent is processed in a separate thread
+}
+```
+**Ordering Listeners**
+you need on listener to be invoked before another one.
+```java
+@EventListener
+@Order(42)
+public void processBlockedListEvent(BlockedListEvent event) {
+```
+**Generic Event**
+``@EventListener
+public void onPersonCreated(EntityCreatedEvent<Person> event)``
+
+**Some events** : ``ContextRefreshedEvent, ContextStartedEvent, ContextStoppedEvent, ContextClosedEvent,RequestHandledEvent,ServletRequestHandledEvent`` in spring.
+
+**Push a custom event**
+You also can custom ``ApplicationEvent``, call the ``publishEvent()`` method in an ``ApplicationEventPublisher`` . Typically, creating a class implement ``ApplicationEventPublisherAware`` then call to ``publisher.publishEvent(...BlockedListEvent..)`` after your action in any method finish. that is way to push a event.
+
+**Receive the custom event** that class should implement ``ApplicationListener<BlockedListEvent>`` then the method ``onApplicationEvent(BlockedListEvent event)`` will recived your event
+or can use anotation to listen the BlockedListEvent Which is pushed
+
+```java
+@EventListener
+public ListUpdateEvent handleBlockedListEvent(BlockedListEvent event) {
+    // notify appropriate parties via notificationAddress and
+    // then publish a ListUpdateEvent...
+```
+
+
+
 
 
 
