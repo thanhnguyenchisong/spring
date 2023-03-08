@@ -1,0 +1,30 @@
+# Validation, Data Binding, Type Conversion
+## 1. Validation by Spring's Validation Interface
+Can use ``Validator`` interface to validate objects. It works by using ``Errors`` object, so while validating, validators can report validation failures to ``Errors`` object.
+```java
+public class PersonValidator implements Validator {
+    public boolean supports(Class clazz) {
+        return Person.class.equals(clazz);
+    }
+    public void validate(Object obj, Errors e) {
+        ValidationUtils.rejectIfEmpty(e, "name", "name.empty");
+        Person p = (Person) obj;
+        if (p.getAge() < 0) {
+            e.rejectValue("age", "negativevalue");
+        } else if (p.getAge() > 110) {
+            e.rejectValue("age", "too.darn.old");
+        }
+    }
+}
+```
+with the support from ``ValidationUtils``
+## 2. Resolving code to Error Messages.
+DefaultMessageCodesResolver is used as default.
+## 3. BeanWrapper
+``BeanWrapper`` interface  and corresponding implementation ``BeanWrapperImpl``.
+offers functionality to set and get property values, determine if they are readable or writable, support nestd properties, add standard JavaBeans ``PropertyChangeListeners`` and ``VetoableChangeListeners`` , setting indexed properties. ``BeanWrapper`` not used in code derectly but used by DataBinder and BeanFactory.
+
+### 4. Setting and Getting Bsic and Nested properties.
+through the ``setPropertyValue`` and ``getPropertyValue`` overloaded method veriants of ``BeanWrapper``
+### 5. PropertyEditor Implementations
+Spring use concept of PropertyEditor to effect the conversion bw an Object and a String.

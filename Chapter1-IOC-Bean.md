@@ -770,7 +770,36 @@ public ListUpdateEvent handleBlockedListEvent(BlockedListEvent event) {
     // notify appropriate parties via notificationAddress and
     // then publish a ListUpdateEvent...
 ```
+### 9.4 Convinient Access to Low-level Resources.
+``ResourceLoader`` application context.
 
+### 9.5 Application Startup-Tracking
+```java
+// create a startup step and start recording
+StartupStep scanPackages = this.getApplicationStartup().start("spring.context.base-packages.scan");
+// add tagging information to the current step
+scanPackages.tag("packages", () -> Arrays.toString(basePackages));
+// perform the actual phase we're instrumenting
+this.scanner.scan(basePackages);
+// end the current step
+scanPackages.end();
+```
+### 9.6 Convienient ApplicationContext instantiation for Web Applications.
+Register ``ApplicationContext`` by using the ``ContextLoaderListener``
+
+### 9.7 Deploy a Spring Application Context a a Jakarta EE RAR file.
+RAR dployment is ideal for application contexts that do not need HTTP entry points but sonsist only of messaage endpoints and scheduled jobs.
+- Package all application classes into RAR file.
+- Add all required li JARs into the root of the RAR archive
+- Add a META-INF/ra.xml deployment descriptor and the corresponding SpringXML bean definition file (MEATA-INF/applicationContext.xml)
+- Drop the resulting RAR file into your application server's deployment directory
+  
+### 9.8 The BeanFactory API
+Provides the underlying basis for SPring's IOC funtionality.
+
+### BeanFactory and ApplicationContext.
+ApplicationContext is a extention of BeanFactory
+So ApplicationContext have all funtionalities of BeanFactory and some specific config of BeanFactory => Should use ApplicationText, there are more methos so more support
 
 
 
