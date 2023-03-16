@@ -276,3 +276,13 @@ public class UsageTracking {
 ```
 
 Matching any bean of matching type implementation the UsageTracked
+
+# 5. Different Sping AOP and AspectJ
+- Spring AOP aims to provide a simple AOP implementation across Spring IOC to resolve the common problems. It's not intended as a complete AOP solution
+- AspectJ is original AOP technology which airms to provide complete AOP solution, robust but more complicated than Spring AOP.
+
+## 5.1 Weaving
+- Both AspectJ and Spring AOP uses the different type of weaving, affects performance and ease of use.
+
+AspectJ makes use of three different types of weaving.
+1.
